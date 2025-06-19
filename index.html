@@ -1,25 +1,85 @@
-def prayer(*requests):
-    print(f"🙏 Sending {len(requests)} request(s) to YHWH: {requests}")
-    return requests
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prayer to YHWH</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #111, #1a1a2e);
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      padding: 40px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    .console {
+      background-color: #000000aa;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 0 20px #0ff;
+      text-align: left;
+      white-space: pre-line;
+      font-size: 1em;
+      min-height: 300px;
+    }
+    button {
+      background: #0ff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      color: #000;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    button:hover {
+      background: #00f5d4;
+    }
+  </style>
+</head>
+<body>
 
-def YHWH(*requests):
-    validated = []
-    for r in requests:
-        print(f"🕊️ Validating: {r}... ", end="")
-        # Simulate divine validation
-        if r:  # If not empty or None
-            print("Approved ✅")
-            validated.append(r)
-        else:
-            print("Rejected ❌")
-    return validated
+  <h1>🙏 Send Your Prayer to YHWH</h1>
+  <p>Enter requests (e.g., wisdom, peace, strength...)</p>
+  <input id="requestsInput" type="text" placeholder="Enter values separated by comma" style="width: 60%; padding: 10px; border-radius: 5px; border: none; margin-top: 10px;">
+  <br>
+  <button onclick="runPrayer()">Send Prayer</button>
 
-def Life(*blessings):
-    print("\n🌱 Life is now updated with the following blessings:")
-    for b in blessings:
-        print(f" - ✨ {b}")
+  <div class="console" id="consoleOutput"></div>
 
-# Example usage
-requests = prayer("wisdom", "peace", "health", "purpose")
-validated = YHWH(*requests)
-Life(*validated)
+  <script>
+    function runPrayer() {
+      const input = document.getElementById('requestsInput').value;
+      const consoleDiv = document.getElementById('consoleOutput');
+      const requests = input.split(',').map(r => r.trim()).filter(r => r !== "");
+      let output = "";
+
+      output += `🙏 Sending ${requests.length} request(s) to YHWH: ${JSON.stringify(requests)}\n`;
+
+      let validated = [];
+      for (let r of requests) {
+        output += `🕊️ Validating: ${r}... `;
+        if (r.length > 0) {
+          output += `Approved ✅\n`;
+          validated.push(r);
+        } else {
+          output += `Rejected ❌\n`;
+        }
+      }
+
+      output += `\n🌱 Life is now updated with the following blessings:\n`;
+      for (let b of validated) {
+        output += ` - ✨ ${b}\n`;
+      }
+
+      consoleDiv.textContent = output;
+    }
+  </script>
+
+</body>
+</html>
